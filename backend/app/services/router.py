@@ -21,15 +21,18 @@ _THANKS_RE = re.compile(
 )
 
 _IT_RE = re.compile(
-    r"\b(windows|mac|macos|macbook|imac|linux|ubuntu|debian|fedora|computer|laptop|desktop|pc"
-    r"|printer|printing|print|scanner|wi-?fi|wireless|internet|network|ethernet|router|modem|vpn"
-    r"|email|e-mail|outlook|gmail|inbox|password|passcode|login|log in|sign in|signin|account"
-    r"|mfa|2fa|install|installing|installation|uninstall|reinstall|software|app|apps"
-    r"|application|program|update|updates|upgrade|driver|drivers|error|crash|crashes|crashing"
-    r"|freeze|frozen|screen|display|monitor|keyboard|mouse|bluetooth|usb|microsoft|office"
-    r"|excel|powerpoint|teams|zoom|browser|chrome|firefox|safari|disk|storage|ram|cpu|slow"
-    r"|boot|restart|reboot|virus|antivirus|backup|file|files|folder|onedrive|dropbox|server"
-    r"|dns|ip)\b"
+    r"\b(windows|mac|macs|macos|macbook|imac|linux|ubuntu|debian|fedora|computers?|laptops?"
+    r"|desktops?|pcs?|printers?|printing|print|scanners?|wi-?fi|wireless|internet|networks?"
+    r"|networking|ethernet|routers?|modems?|vpn|e-?mails?|outlook|gmail|inbox|passwords?"
+    r"|passcodes?|login|log in|sign in|signin|accounts?|mfa|2fa|install|installs|installed"
+    r"|installing|installation|uninstall|uninstalled|reinstall|reinstalled|software|apps?"
+    r"|applications?|programs?|update|updates|updated|upgrade|upgrades|drivers?|errors?"
+    r"|crash|crashes|crashed|crashing|freeze|freezes|freezing|froze|frozen|screens?|display"
+    r"|monitors?|keyboards?|mouse|bluetooth|usb|microsoft|office|excel|powerpoint|teams|zoom"
+    r"|slack|sharepoint|adobe|acrobat|pdf|browsers?|chrome|firefox|edge|safari|disk|storage"
+    r"|ram|cpu|slow|boot|restart|reboot|virus|antivirus|backups?|files?|folders?|onedrive"
+    r"|dropbox|servers?|dns|ip|sync|syncing|synced|phones?|iphone|android|ipad|tablets?"
+    r"|webcam|camera|microphone|mic|headset|headphones|speakers?|audio|sound)\b"
 )
 
 _OFF_TOPIC_RE = re.compile(
@@ -40,10 +43,14 @@ _OFF_TOPIC_RE = re.compile(
     r"|invest|investing|crypto|bitcoin|horoscope|travel|holiday|vacation|politics|election)\b"
 )
 
+# Licensing nouns mark a message as in scope even when it also contains an off-topic word.
+_LICENSE_NOUN_RE = re.compile(
+    r"\b(licen[cs]es?|licen[cs]ed|licen[cs]ing|(product|license|licence|activation|serial) key"
+    r"|serial number|subscriptions?)\b"
+)
 _LICENSE_RE = re.compile(
-    r"\b(licen[cs]es?|licen[cs]ed|licen[cs]ing|product key|serial (key|number)|activation"
-    r"|activate|activating|renew|renewal|renewing|subscriptions?|price|prices|pricing|cost"
-    r"|costs|buy|buying|purchase|purchasing)\b"
+    rf"{_LICENSE_NOUN_RE.pattern}"
+    r"|\b(renew|renewal|renewing|price|prices|pricing|cost|costs|buy|buying|purchase|purchasing)\b"
 )
 
 
@@ -60,8 +67,8 @@ def classify(message: str) -> Intent:
     text = _normalize(message)
     if _GREETING_RE.match(text) or _THANKS_RE.match(text):
         return Intent.GREETING
-    has_it_terms = bool(_IT_RE.search(text))
-    if not has_it_terms and _OFF_TOPIC_RE.search(text):
+    in_scope = bool(_IT_RE.search(text) or _LICENSE_NOUN_RE.search(text))
+    if not in_scope and _OFF_TOPIC_RE.search(text):
         return Intent.OUT_OF_SCOPE
     if _LICENSE_RE.search(text):
         return Intent.LICENSE

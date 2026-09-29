@@ -86,6 +86,29 @@ def test_wifi_spellings(msg):
     assert classify(msg) is Intent.IT_SUPPORT
 
 
+@pytest.mark.parametrize(
+    "msg",
+    [
+        "Both printers in the history department are jammed",
+        "How do I clear my history in Edge?",
+        "Adobe Acrobat won't open my essay PDF",
+        "My emails from the sports club aren't syncing",
+        "My webcam doesn't work for my doctor appointment",
+        "My passwords stopped working after the update",
+    ],
+)
+def test_plural_and_device_terms_count_as_it(msg):
+    assert classify(msg) is Intent.IT_SUPPORT
+
+
+def test_license_noun_beats_off_topic_word():
+    assert classify("Renew the Adobe Acrobat license for the travel team") is Intent.LICENSE
+
+
+def test_account_activation_is_not_licensing():
+    assert classify("How do I activate my account?") is Intent.IT_SUPPORT
+
+
 def test_is_thanks():
     assert is_thanks("Thank you!")
     assert is_thanks("thanks a lot")
