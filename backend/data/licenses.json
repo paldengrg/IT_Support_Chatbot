@@ -1,0 +1,71 @@
+{
+  "note": "FICTIONAL SAMPLE DATA for the ITEC 320 IT Support Chatbot. Prices and products are illustrative only.",
+  "licenses": [
+    {
+      "product": "Microsoft 365 Business Standard",
+      "aliases": ["microsoft 365", "m365", "office 365", "office"],
+      "vendor": "Microsoft",
+      "price_per_user_year": 150,
+      "currency": "USD",
+      "available": true,
+      "requires_approval": true,
+      "renewal": "Annual; renewed centrally by IT.",
+      "purchase_process": "Submit a request through the IT portal; manager approval required."
+    },
+    {
+      "product": "Adobe Acrobat Pro",
+      "aliases": ["acrobat", "adobe acrobat", "adobe pdf"],
+      "vendor": "Adobe",
+      "price_per_user_year": 240,
+      "currency": "USD",
+      "available": true,
+      "requires_approval": true,
+      "renewal": "Annual; renewed centrally by IT.",
+      "purchase_process": "Submit a request through the IT portal; manager approval required."
+    },
+    {
+      "product": "Zoom Workplace Pro",
+      "aliases": ["zoom", "zoom pro"],
+      "vendor": "Zoom",
+      "price_per_user_year": 160,
+      "currency": "USD",
+      "available": true,
+      "requires_approval": false,
+      "renewal": "Annual; renewed centrally by IT.",
+      "purchase_process": "Submit a request through the IT portal; no manager approval needed."
+    },
+    {
+      "product": "JetBrains IntelliJ IDEA Ultimate",
+      "aliases": ["intellij", "intellij idea", "jetbrains"],
+      "vendor": "JetBrains",
+      "price_per_user_year": 599,
+      "currency": "USD",
+      "available": true,
+      "requires_approval": true,
+      "renewal": "Annual; renewed centrally by IT.",
+      "purchase_process": "Submit a request through the IT portal; manager approval required."
+    },
+    {
+      "product": "Slack Pro",
+      "aliases": ["slack"],
+      "vendor": "Slack",
+      "price_per_user_year": 105,
+      "currency": "USD",
+      "available": true,
+      "requires_approval": false,
+      "renewal": "Annual; renewed centrally by IT.",
+      "purchase_process": "Submit a request through the IT portal; no manager approval needed."
+    },
+    {
+      "product": "Autodesk AutoCAD",
+      "aliases": ["autocad", "autodesk"],
+      "vendor": "Autodesk",
+      "price_per_user_year": 2030,
+      "currency": "USD",
+      "available": false,
+      "requires_approval": true,
+      "renewal": "Not applicable; not currently offered.",
+      "purchase_process": "Not currently offered. Contact IT Support to discuss alternatives."
+    }
+  ]
+}
